@@ -1,40 +1,42 @@
-import { addStudent } from "../services/studentService";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { addStudent, updateStudent } from "../services/studentService";
 
-const StudentForm = () => {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+export default function StudentForm({ selectedStudent, onFinish }) {
+  const [form, setForm] = useState({
+    name: "",
+    phone: "",
+    course: ""
+  });
+
+  useEffect(() => {
+    if (selectedStudent) setForm(selectedStudent);
+  }, [selectedStudent]);
+
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await addStudent({
-      name,
-      phone,
-      status: "Active"
-    });
+    if (selectedStudent) {
+      await updateStudent(selectedStudent.id, form);
+    } else {
+      await addStudent(form);
+    }
 
-    setName("");
-    setPhone("");
+    setForm({ name: "", phone: "", course: "" });
+    onFinish(); // обновить список и сбросить редактирование
   };
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        placeholder="Name"
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
-
-      <input
-        type="text"
-        placeholder="Phone"
-        value={phone}
-        onChange={(e) => setPhone(e.target.value)}
-      />
-
-      <button type="submit">Add Student</button>
+      <input name="name" placeholder="Имя" value={form.name} onChange={handleChange} />
+      <input name="phone" placeholder="Телефон" value={form.phone} onChange={handleChange} />
+      <input name="course" placeholder="Курс" value={form.course} onChange={handleChange} />
+      <button type="submit">
+        {selectedStudent ? "Сохранить" : "Добавить"}
+      </button>
     </form>
   );
-};
+}
