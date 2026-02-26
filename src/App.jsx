@@ -1,12 +1,15 @@
-// import { db } from "./firebase";
-// console.log(db);
+import { Routes, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 
 function App() {
-  const handleAddStudent = (student) => {
-  setStudents([...students, student]);
-};
-  return <Home />; 
+  return (
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/active" element={<Home />} />
+      <Route path="/finished" element={<Home />} />
+      <Route path="*" element={<Navigate to="/" />} />
+    </Routes>
+  );
 }
 
 export default App;

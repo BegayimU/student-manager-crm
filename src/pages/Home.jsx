@@ -1,12 +1,21 @@
 import { useState, useEffect } from "react";
+import { useLocation, Link } from "react-router-dom";
 import StudentForm from "../components/StudentForm";
 import StudentList from "../components/StudentList";
 import SearchBar from "../components/SearchBar";
-import FilterBar from "../components/FilterBar";
 import { getStudents } from "../services/studentService";
 
 const Home = () => {
-  const [filter, setFilter] = useState("all");
+  const location = useLocation();
+
+  const getFilterFromPath = () => {
+    if (location.pathname === "/active") return "active";
+    if (location.pathname === "/finished") return "finished";
+    return "all";
+  };
+
+  const filter = getFilterFromPath();
+
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
 
@@ -19,7 +28,7 @@ const Home = () => {
     fetchStudents();
   }, []);
 
-  const filteredStudents = students.filter(student => {
+  const filteredStudents = students.filter((student) => {
     if (filter === "all") return true;
     return student.status === filter;
   });
@@ -39,7 +48,12 @@ const Home = () => {
 
       <SearchBar />
 
-      <FilterBar filter={filter} setFilter={setFilter} />
+      {/* Router Filter */}
+      <div style={{ marginBottom: "20px" }}>
+        <Link to="/" style={{ marginRight: "15px" }}>All</Link>
+        <Link to="/active" style={{ marginRight: "15px" }}>Active</Link>
+        <Link to="/finished">Finished</Link>
+      </div>
 
       <StudentList
         students={filteredStudents}
