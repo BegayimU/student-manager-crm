@@ -6,6 +6,7 @@ import FilterBar from "../components/FilterBar";
 import { getStudents } from "../services/studentService";
 
 const Home = () => {
+  const [filter, setFilter] = useState("all");
   const [students, setStudents] = useState([]);
   const [selectedStudent, setSelectedStudent] = useState(null);
 
@@ -18,9 +19,15 @@ const Home = () => {
     fetchStudents();
   }, []);
 
+  const filteredStudents = students.filter(student => {
+    if (filter === "all") return true;
+    return student.status === filter;
+  });
+
   return (
     <div style={{ padding: "40px" }}>
       <h1>Student Manager</h1>
+      <p>Мини CRM для управления студентами</p>
 
       <StudentForm
         selectedStudent={selectedStudent}
@@ -31,10 +38,11 @@ const Home = () => {
       />
 
       <SearchBar />
-      <FilterBar />
+
+      <FilterBar filter={filter} setFilter={setFilter} />
 
       <StudentList
-        students={students}
+        students={filteredStudents}
         onEdit={setSelectedStudent}
         onUpdate={fetchStudents}
       />
