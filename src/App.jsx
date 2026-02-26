@@ -2,7 +2,6 @@
 // console.log(db);
 import Home from "./pages/Home";
 
-
 function App() {
   const handleAddStudent = (student) => {
   setStudents([...students, student]);
