@@ -89,7 +89,6 @@ export default function StudentForm({ selectedStudent, onFinish }) {
       >
         <option value="">Выберите статус</option>
         <option value="active">Active</option>
-        <option value="in-progress">In Progress</option>
         <option value="finished">Finished</option>
       </select>
 

@@ -30,20 +30,6 @@ const FilterBar = ({ filter, setFilter }) => {
       </button>
 
       <button
-        onClick={() => setFilter("in-progress")}
-        style={{
-          background: filter === "in-progress" ? "#3b82f6" : "#e5e7eb",
-          color: filter === "in-progress" ? "white" : "black",
-          border: "none",
-          padding: "8px 12px",
-          borderRadius: "6px",
-          cursor: "pointer"
-        }}
-      >
-        In Progress
-      </button>
-
-      <button
         onClick={() => setFilter("finished")}
         style={{
           background: filter === "finished" ? "#ef4444" : "#e5e7eb",
