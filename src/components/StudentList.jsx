@@ -2,18 +2,7 @@ import { useEffect, useState } from "react";
 import { getStudents } from "../services/studentService";
 import StudentItem from "./StudentItem";
 
-export default function StudentList({ onEdit }) {
-  const [students, setStudents] = useState([]);
-
-  const loadStudents = async () => {
-    const data = await getStudents();
-    setStudents(data);
-  };
-
-  useEffect(() => {
-    loadStudents();
-  }, []);
-
+export default function StudentList({ students, onEdit, onUpdate }) {
   return (
     <div
       style={{
@@ -46,7 +35,7 @@ export default function StudentList({ onEdit }) {
             key={s.id}
             student={s}
             onEdit={onEdit}
-            onChange={loadStudents}
+            onChange={onUpdate}
           />
         ))
       )}

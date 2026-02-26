@@ -25,10 +25,26 @@ const Home = () => {
   });
 
   return (
-    <div style={{ padding: "40px" }}>
-      <h1>Student Manager</h1>
-      <p>Мини CRM для управления студентами</p>
+  <div
+    style={{
+      minHeight: "100vh",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      padding: "40px 20px",
+      backgroundColor: "#f5f6fa"
+    }}
+  >
+    {/* Заголовок */}
+    <div style={{ textAlign: "center", marginBottom: "30px" }}>
+      <h1 style={{ marginBottom: "10px" }}>Student Manager</h1>
+      <p style={{ color: "#666" }}>
+        Мини CRM для управления студентами
+      </p>
+    </div>
 
+    {/* Форма */}
+    <div style={{ width: "100%", maxWidth: "500px", marginBottom: "40px" }}>
       <StudentForm
         selectedStudent={selectedStudent}
         onFinish={() => {
@@ -36,18 +52,33 @@ const Home = () => {
           setSelectedStudent(null);
         }}
       />
+    </div>
 
+    {/* Поиск + Фильтр */}
+    <div
+      style={{
+        width: "100%",
+        maxWidth: "900px",
+        marginBottom: "30px",
+        display: "flex",
+        flexDirection: "column",
+        gap: "20px"
+      }}
+    >
       <SearchBar />
-
       <FilterBar filter={filter} setFilter={setFilter} />
+    </div>
 
+    {/* Список студентов */}
+    <div style={{ width: "100%", maxWidth: "900px" }}>
       <StudentList
         students={filteredStudents}
         onEdit={setSelectedStudent}
         onUpdate={fetchStudents}
       />
     </div>
-  );
+  </div>
+);
 };
 
 export default Home;
