@@ -40,44 +40,64 @@ export default function StudentForm({ selectedStudent, onFinish }) {
     onFinish();
   };
 
+  const inputStyle = {
+    padding: "12px 14px",
+    borderRadius: "10px",
+    border: "none",
+    outline: "none",
+    background: "rgba(255,255,255,0.75)",
+    boxShadow: "inset 0 2px 6px rgba(0,0,0,0.15)",
+    fontSize: "14px",
+    transition: "0.3s"
+  };
+
   return (
     <form
       onSubmit={handleSubmit}
       style={{
         display: "flex",
         flexDirection: "column",
-        gap: "10px",
-        padding: "20px",
-        border: "1px solid #ddd",
-        borderRadius: "10px",
+        gap: "14px",
+        padding: "24px",
+        borderRadius: "18px",
         marginBottom: "20px",
-        maxWidth: "400px"
+        maxWidth: "420px",
+        background: "linear-gradient(135deg,#6366f1,#22c55e,#f59e0b)",
+        boxShadow: "0 15px 35px rgba(0,0,0,0.25)"
       }}
     >
+      <h2 style={{ textAlign: "center", color: "white", marginBottom: "6px" }}>
+        🎓 Student Form
+      </h2>
+
       <input
+        style={inputStyle}
         name="name"
-        placeholder="Имя"
+        placeholder="👤 Имя студента"
         value={form.name}
         onChange={handleChange}
       />
 
       <input
+        style={inputStyle}
         name="phone"
-        placeholder="Телефон"
+        placeholder="📞 Телефон"
         value={form.phone}
         onChange={handleChange}
       />
 
       <input
+        style={inputStyle}
         name="targetCourse"
-        placeholder="Целевой курс"
+        placeholder="🎯 Целевой курс"
         value={form.targetCourse}
         onChange={handleChange}
       />
 
       <input
+        style={inputStyle}
         name="preCourse"
-        placeholder="Предкурс"
+        placeholder="📘 Предкурс"
         value={form.preCourse}
         onChange={handleChange}
       />
@@ -86,24 +106,38 @@ export default function StudentForm({ selectedStudent, onFinish }) {
         name="status"
         value={form.status}
         onChange={handleChange}
+        style={{
+          ...inputStyle,
+          cursor: "pointer"
+        }}
       >
-        <option value="">Выберите статус</option>
-        <option value="active">Active</option>
-        <option value="finished">Finished</option>
+        <option value="">📌 Выберите статус</option>
+        <option value="active">🟢 Active</option>
+        <option value="finished">🔴 Finished</option>
       </select>
 
       <button
         type="submit"
         style={{
-          padding: "10px",
-          backgroundColor: "#2563eb",
-          color: "white",
+          marginTop: "8px",
+          padding: "12px",
+          borderRadius: "999px",
           border: "none",
-          borderRadius: "6px",
-          cursor: "pointer"
+          cursor: "pointer",
+          fontWeight: "600",
+          letterSpacing: "0.5px",
+          color: "white",
+          background: selectedStudent
+            ? "linear-gradient(135deg,#22c55e,#4ade80)"
+            : "linear-gradient(135deg,#3b82f6,#6366f1)",
+          boxShadow: "0 6px 18px rgba(0,0,0,0.25)",
+          transition: "0.3s",
+          transform: "scale(1)"
         }}
+        onMouseEnter={(e) => (e.target.style.transform = "scale(1.05)")}
+        onMouseLeave={(e) => (e.target.style.transform = "scale(1)")}
       >
-        {selectedStudent ? "Сохранить" : "Добавить"}
+        {selectedStudent ? "💾 Сохранить" : "➕ Добавить"}
       </button>
     </form>
   );
